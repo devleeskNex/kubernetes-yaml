@@ -1,23 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: billing-kb-deployment
+  name: billing-kb
   namespace: nexclipper
   labels:
-    app: billing-kb-deployment
+    app: billing-kb
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: billing-kb-pod
+        app: billing-kb
     spec:
       containers:
-      - name: billing-kb-container
+      - name: billing-kb
         image: sppark/killbill:0.20.2
         env:
         - name: KILLBILL_DAO_URL
-          value: jdbc:mysql://billing-db-service.nexclipper:32001/killbill
+          value: jdbc:mysql://billing-db.nexclipper:32001/killbill
         - name: KILLBILL_DAO_USER
           value: root
         - name: KILLBILL_DAO_PASSWORD

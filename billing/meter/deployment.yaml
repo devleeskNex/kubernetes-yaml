@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: billing-meter
+  namespace: nexclipper
+  labels:
+    app: billing-meter
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: billing-meter
+    spec:
+      containers:
+      - name: billing-meter
+        image: nexclipper/meter:v1
+        env:
+        - name: SPRING_DATASOURCE_USERNAME
+          value: root
+        - name:  KILLBILL_PASSWORD
+          value: password
+        - name:  KILLBILL_URL
+          value: http://billing-db.nexclipper:32002
+        - name:  SPRING_INFLUXDB_DATABASE
+          value: meter
+        - name:  SPRING_DATASOURCE_PASSWORD
+          value: killbill
+        - name:  SPRING_REDIS
+          value: redis.marathon.l4lb.thisdcos.directory:6379
+        - name:  SPRING_INFLUXDB_URL
+          value: http://influxdb.marathon.l4lb.thisdcos.directory:8087
+        - name:  KILLBILL_APISECRET
+          value: password
+        - name:  KILLBILL_USERNAME
+          value: admin
+        - name:  KILLBILL_APIKEY
+          value: admin
+        - name:  SPRING_DATASOURCE_URL
+          value: jdbc:mysql://billing-db.nexclipper:32001/kaui
+        - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
+          value: broker.kafka.l4lb.thisdcos.directory:9092
+        ports:
+        - name: kb
+          containerPort: 8080
+
