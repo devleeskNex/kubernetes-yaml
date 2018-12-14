@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cluster
+  labels: 
+    app: cluster
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: cluster
+      labels:
+        app: cluster
+    spec:
+      containers:
+        - name: clusterapi
+          image: nexclipper/mesos:k8s-v0.1
+          ports:
+            - containerPort: 9000
+              name: clusterapi
+          env:
+            - name: INFLUXDB_ENDPOINT
+              value: "http://influx.nexclipper:8087"
+            - name: INFLUXDB_DATASOURCE
+              value: "nexclipper"
+            - name: REDIS_ENDPOINT
+              value: redis.nexclipper
+            - name: REDIS_PORT
+              value: '6379'

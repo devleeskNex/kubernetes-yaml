@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: auth
+  labels: 
+    app: auth
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: auth
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: nexclipper/nex-oauth2:k8s-v0.1
+          ports:
+            - containerPort: 8888
+              name: auth
+          env:
+            - name: MYSQL_URL
+              value: "mysql.nexclipper"
+            - name: MYSQL_PORT
+              value: '3306'
+            - name: MYSQL_USERNAME
+              value: "admin"
+            - name: MYSQL_PASSWORD
+              value: "password"
+            - name: PORT
+              value: '8888'

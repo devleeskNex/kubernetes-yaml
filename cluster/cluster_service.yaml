@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster
+  labels: 
+    app: cluster
+    version: v0.1
+  namespace: nexclipper
+spec:
+  type: NodePort
+  ports:
+  - port: 10100
+    protocol: TCP
+    targetPort: 9000
+    name: http
+  externalIPs:
+  - 192.168.0.173
+  selector:  
+    app: cluster
+

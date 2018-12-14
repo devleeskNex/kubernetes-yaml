@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nexclipper-ui
+  labels: 
+    app: nexclipper-ui
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nexclipper-ui
+      labels:
+        app: nexclipper-ui
+    spec:
+      containers:
+        - name: nexclipper-ui
+          image: nexclipper/sassnexclipperui:k8s-v0.1
+          ports:
+            - containerPort: 9000
+              name: nexclipper-ui
+          env:
+            - name: MYSQL_DBNAME
+              value: "defaultdb"
+            - name: MYSQL_URL
+              value: "mysql.nexclipper"
+            - name: MYSQL_PORT
+              value: '3306'
+            - name: MYSQL_USERNAME
+              value: "admin"
+            - name: MYSQL_PASSWORD
+              value: "password"
+            - name: REDIS_HOST
+              value: redis.nexclipper
+            - name: REDIS_PORT
+              value: '6379'
+            - name: MESOS_API_ENDPOINT
+              value: "cluster.nexclipper:10100"
+            - name: HOST_API_ENDPOINT
+              value: "host.nexclipper:10100"
+            - name: SEARCH_API_ENDPOINT
+              value: "search.nexclipper:10100"
+            - name: AUTH_API_ENDPOINT
+              value: "auth.nexclipper:10100"
+            - name: KILLBILL_IP
+              value: "billing-kb.nexclipper"
+            - name: KILLBILL_PORT
+              value: '10100'
+            - name: PAYPAL_RETURN_URL
+              value: "https://server.nexclipper.com/nexcloud_nexclipperui/v1/billing/payPalCheckout"
+            - name: KILLBILL_IP
+              value: "billing-kb.nexclipper"
+            - name: SHINY_ENDPOINT
+              value: "https://ai.nexclipper.com"
+            
+            

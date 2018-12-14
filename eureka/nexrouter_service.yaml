@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexrouter
+  labels: 
+    app: nexrouter
+    version: v0.1
+  namespace: nexclipper
+spec:
+  type: NodePort
+  ports:
+  - port: 8770
+    protocol: TCP
+    targetPort: 8770
+    name: http
+  externalIPs:
+  - 192.168.0.171
+  selector:  
+    app: nexrouter
+

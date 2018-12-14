@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nexrouter
+  labels: 
+    app: nexrouter
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nexrouter
+      labels:
+        app: nexrouter
+    spec:
+      containers:
+        - name: nexrouter
+          image: nexclipper/nexeureka:k8s-v0.1
+          ports:
+            - containerPort: 8770
+              name: nexrouter
+          env:
+            - name: DEFAULT_ZONE
+              value: "http://localhost:8770/eureka/"
+            - name: EUREKA_ENDPOINT
+              value: "http://localhost:8770/eureka/apps"
