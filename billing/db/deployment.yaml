@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: billing-db-deployment
+  namespace: nexclipper
+  labels:
+    app: billing-db-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: billing-db-pod
+    spec:
+      containers:
+      - name: billing-db-container
+        image: killbill/mariadb:0.20
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: killbill
+        ports:
+        - name: mysql
+          containerPort: 3306

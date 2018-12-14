@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: search
+  labels: 
+    app: search
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: search
+      labels:
+        app: search
+    spec:
+      containers:
+        - name: searchapi
+          image: nexclipper/search:k8s-v0.1
+          ports:
+            - containerPort: 8080
+              name: searchapi
+          env:
+            - name: INFLUXDB_ENDPOINT
+              value: "http://influx.nexclipper:8087"
+            - name: MYSQL_DBNAME
+              value: "defaultdb"
+            - name: MYSQL_URL
+              value: "mysql.nexclipper:3306"
+            - name: MYSQL_PASSWORD
+              value: "password"
+            - name: MYSQL_USERNAME
+              value: "admin"
+            - name: INFLUXDB_DATASOURCE
+              value: "nexclipper"

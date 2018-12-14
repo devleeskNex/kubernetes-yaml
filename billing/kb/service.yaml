@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing-kb-service
+  namespace: nexclipper
+  labels:
+    app: billing-kb-service
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32002
+    port: 8080
+  selector:
+    app: billing-kb-pod
