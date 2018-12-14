@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: servicegate
+  labels: 
+    app: servicegate
+    version: v1
+  namespace: nexclipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: servicegate
+      labels:
+        app: servicegate
+    spec:
+      containers:
+        - name: servicegate
+          image: nexclipper/servicegate:k8s-v0.1
+          ports:
+            - containerPort: 9999
+              name: servicegate
+          env:
+          - name: SERVICE_ID
+            value: "/nex-dashboard,/nexcloud_nexclipperui"
+          - name: NON_URI
+            value: "/nex-dashboard/v1/agent/token,/nexcloud_nexclipperui/v1/agent/token,/nex-dashboard/v1/password/check,/nexcloud_nexclipperui/v1/password/check,"
+          - name: COLLECTOR_SERVICE_ID
+            value: "/nexcloud_collector"
+          - name: NON_SERVICE_ID
+            value: "/nexcloud_collector"
+          - name: REDIS_ENDPOINT
+            value: redis.nexclipper
+          - name: REDIS_PORT
+            value: '6379'
