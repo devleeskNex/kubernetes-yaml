@@ -17,7 +17,7 @@ spec:
         image: sppark/killbill:0.20.2
         env:
         - name: KILLBILL_DAO_URL
-          value: jdbc:mysql://billing-db.nexclipper:32001/killbill
+          value: jdbc:mysql://billing-db.nexclipper:3306/killbill
         - name: KILLBILL_DAO_USER
           value: root
         - name: KILLBILL_DAO_PASSWORD

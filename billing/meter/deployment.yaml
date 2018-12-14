@@ -21,15 +21,15 @@ spec:
         - name:  KILLBILL_PASSWORD
           value: password
         - name:  KILLBILL_URL
-          value: http://billing-db.nexclipper:32002
+          value: http://billing-db.nexclipper:8080
         - name:  SPRING_INFLUXDB_DATABASE
           value: meter
         - name:  SPRING_DATASOURCE_PASSWORD
           value: killbill
         - name:  SPRING_REDIS
-          value: redis.marathon.l4lb.thisdcos.directory:6379
+          value: redis.nexclipper:6379
         - name:  SPRING_INFLUXDB_URL
-          value: http://influxdb.marathon.l4lb.thisdcos.directory:8087
+          value: http://influx.nexclipper:8087
         - name:  KILLBILL_APISECRET
           value: password
         - name:  KILLBILL_USERNAME
@@ -37,7 +37,7 @@ spec:
         - name:  KILLBILL_APIKEY
           value: admin
         - name:  SPRING_DATASOURCE_URL
-          value: jdbc:mysql://billing-db.nexclipper:32001/kaui
+          value: jdbc:mysql://billing-db.nexclipper:3306/kaui
         - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
           value: broker.kafka.l4lb.thisdcos.directory:9092
         ports:
